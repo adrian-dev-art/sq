@@ -11,6 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
+    $address = $_POST['address'];
     $username = $_POST['username'];
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
@@ -34,8 +35,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $verification_code = bin2hex(random_bytes(16));
 
         // Insert user data into the database
-        $sql = "INSERT INTO users (name, email, phone, username, password, verification_code, is_verified)
-                VALUES ('$name', '$email', '$phone', '$username', '$password', '$verification_code', FALSE)";
+        $sql = "INSERT INTO users (name, email, phone, username, address, password, verification_code, is_verified)
+                VALUES ('$name', '$email', '$phone', '$username', '$address', '$password', '$verification_code', FALSE)";
 
         if ($conn->query($sql) === TRUE) {
             // Send email with registration details and verification code
@@ -158,6 +159,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             font-size: 18px;
             cursor: pointer;
             transition: background-color 0.3s;
+            margin-bottom: 16px;
         }
 
         button:hover {
@@ -178,6 +180,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         .create-account a:hover {
             text-decoration: underline;
+        }
+
+        .btn-cancel {
+            text-decoration: none;
+            color: #4CAF50;
         }
 
         /* Alert styles */
@@ -220,8 +227,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="email" name="email" placeholder="Email" required><br>
         <input type="text" name="phone" placeholder="Phone Number" required><br>
         <input type="text" name="username" placeholder="Username" required><br>
+        <input type="text" name="address" placeholder="Address" required><br>
         <input type="password" name="password" placeholder="Password" required><br>
         <button type="submit">Register</button>
+        <a class="btn-cancel" href="/login.php">Cancel</a>
     </form>
 
     <div class="create-account">
