@@ -33,6 +33,7 @@ $row = $result->fetch_assoc();
 $username = $row['username'];
 $email = $row['email'];
 $name = $row['name'];
+$address = $row['address'];
 $phone = $row['phone']; // Assuming phone is stored in the database
 
 $conn->close();
@@ -123,6 +124,10 @@ $conn->close();
             <tr>
                 <th>Phone</th>
                 <td><?php echo $phone ? $phone : 'Not Available'; ?></td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td><?php echo $address; ?></td>
             </tr>
         </table>
 
