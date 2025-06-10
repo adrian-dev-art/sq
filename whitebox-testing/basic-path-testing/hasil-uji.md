@@ -15,7 +15,7 @@ Hasil: Ada 4 jalur independen yang perlu diuji (A1, A2, A3, A4).
 
 Kesimpulan:
 | Bagian | Path | Jalur Diharapkan |
-|--------|------|------|-------|
+|--------|------|------|
 | A1 | Username not found | tampilkan pesan username tidak ditemukan |
 | A2 | Username ditemukan, password salah | tampilkan pesan password salah |
 | A3 | Username & password benar, belum diverifikasi | tampilkan pesan akun belum diverifikasi |
