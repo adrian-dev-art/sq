@@ -1,0 +1,23 @@
+| Code | Catatan |
+| ---------- | ----------- |
+| session_start(); | Baik: Memulai atau melanjutkan sesi. Ini adalah langkah yang benar dan harus berada di paling atas skrip untuk mengelola sesi pengguna. |
+| if (isset($_SESSION['verification_success']) ...) | Baik: Logika untuk menampilkan pesan sukses satu kali (flash message) setelah verifikasi. Penggunaan unset() setelah menampilkan pesan adalah praktik yang bagus untuk mencegah pesan muncul kembali saat halaman di-refresh. |
+| if ($_SERVER["REQUEST_METHOD"] == "POST") | Baik: Memastikan logika login hanya dieksekusi ketika form dikirim melalui metode POST, sesuai standar keamanan untuk pengiriman data kredensial. |
+| $username = $_POST['username']; <br> $password = $_POST['password']; | Perlu Perhatian: Data input dari pengguna diambil langsung dari $_POST. Meskipun akan diverifikasi, tidak ada proses sanitasi awal (misalnya menggunakan filter_input() atau trim()) untuk membersihkan spasi atau karakter yang tidak diinginkan. |
+| $conn = new mysqli(...) | Risiko (Lingkungan Produksi): Kredensial database (username: root, password: "") ditulis langsung di dalam kode (hardcoded). Ini sangat tidak aman untuk lingkungan produksi. Sebaiknya, kredensial disimpan dalam file konfigurasi terpisah di luar web root. |
+| if ($conn->connect_error) { die(...); } | Cukup Baik: Penanganan error koneksi database sudah ada. Namun, die() akan menghentikan eksekusi dan menampilkan pesan error teknis. Di lingkungan produksi, lebih baik mencatat error ke log file dan menampilkan pesan yang lebih umum kepada pengguna. |
+| $sql = "SELECT * FROM users WHERE username = '$username'"; | KERENTANAN KRITIS (SQL INJECTION): Ini adalah celah keamanan paling serius dalam kode ini. Variabel $username dimasukkan langsung ke dalam string kueri SQL. Penyerang dapat memasukkan payload SQL Injection (contoh: ' OR '1'='1' --) pada kolom username untuk melewati otentikasi tanpa mengetahui password. <br> Solusi untuk SQL Injection <br>
+Wajib Diperbaiki: Gunakan Prepared Statements. Dengan mysqli, kodenya seharusnya seperti ini: <br>
+$stmt = $conn->prepare("SELECT * FROM users WHERE username = ?"); <br>
+$stmt->bind_param("s", $username); <br>
+$stmt->execute(); <br>
+$result = $stmt->get_result();|
+| if ($result->num_rows > 0) | Logika Benar: Alur untuk memeriksa apakah username ditemukan di database sudah benar. Namun, keamanan proses ini bergantung pada eksekusi kueri yang saat ini rentan.|
+| if (password_verify($password, $row['password'])) | Sangat Baik: Penggunaan password_verify() adalah cara yang paling tepat dan aman untuk memverifikasi hash password. Ini melindungi dari timing attacks. |
+| if ($row['is_verified']) | Logika Baik: Adanya pemeriksaan status is_verified adalah lapisan verifikasi tambahan yang bagus. Ini memastikan hanya pengguna yang telah memverifikasi emailnya yang dapat login. |
+| $_SESSION['user_id'] = $row['id']; ... | Baik: Menyimpan informasi pengguna yang relevan ke dalam sesi setelah login berhasil. Ini adalah praktik standar. |
+| header('Location: dashboard.php'); exit(); | Sangat Baik: Mengalihkan pengguna setelah login berhasil. Penggunaan exit() setelah header() sangat penting untuk memastikan tidak ada kode lain yang dieksekusi setelah pengalihan dikirim. |
+| $alert_message = "..."; <br> $alert_class = "..."; | Baik: Menggunakan variabel untuk mengatur pesan error adalah cara yang bersih dan membuat kode lebih mudah dibaca dan dikelola. |
+| $conn->close(); | Baik: Menutup koneksi database untuk melepaskan sumber daya server. |
+| <?php if (isset($alert_message)): ?> ... <?php endif; ?> | Baik: Menampilkan blok HTML alert secara kondisional hanya jika ada pesan yang perlu ditampilkan. |
+| echo $alert_class; <br> echo $alert_message; | Perlu Perhatian (Minor): Pesan notifikasi tidak di-escape (misalnya dengan htmlspecialchars()). Meskipun dalam kasus ini pesan dibuat di sisi server, sebagai praktik keamanan berlapis (defense in depth), semua output yang dirender ke HTML sebaiknya di-escape untuk mencegah potensi serangan XSS di masa depan. |
