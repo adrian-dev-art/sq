@@ -1,0 +1,13 @@
+### Analisis White-Box Testing (Metode: Control Flow Testing)
+
+Tabel ini menguraikan berbagai jalur eksekusi yang diuji berdasarkan kondisi logis dalam script `login.php`.
+
+| Kondisi yang Diuji | Jalur yang Diuji (Execution Path) | Hasil yang Diharapkan |
+| :--- | :--- | :--- |
+| **1. Login Berhasil**<br>- Metode: `POST`<br>- Koneksi DB: Berhasil<br>- Username: Ditemukan<br>- Password: Benar<br>- Akun: Terverifikasi | `if (REQUEST_METHOD)` -> `true`<br>`if (connect_error)` -> `false`<br>`if (num_rows > 0)` -> `true`<br>`if (password_verify)` -> `true`<br>`if (is_verified)` -> `true` | Pengguna berhasil login, data disimpan ke session, dan halaman dialihkan (`redirect`) ke `dashboard.php`. |
+| **2. Password Salah**<br>- Metode: `POST`<br>- Koneksi DB: Berhasil<br>- Username: Ditemukan<br>- Password: Salah | `if (REQUEST_METHOD)` -> `true`<br>`if (connect_error)` -> `false`<br>`if (num_rows > 0)` -> `true`<br>`if (password_verify)` -> `false` | Halaman login ditampilkan kembali dengan pesan error "Incorrect password." (`alert-danger`). |
+| **3. Username Tidak Ditemukan**<br>- Metode: `POST`<br>- Koneksi DB: Berhasil<br>- Username: Tidak ditemukan | `if (REQUEST_METHOD)` -> `true`<br>`if (connect_error)` -> `false`<br>`if (num_rows > 0)` -> `false` | Halaman login ditampilkan kembali dengan pesan error "Username not found." (`alert-danger`). |
+| **4. Akun Belum Terverifikasi**<br>- Metode: `POST`<br>- Koneksi DB: Berhasil<br>- Username: Ditemukan<br>- Password: Benar<br>- Akun: Belum terverifikasi | `if (REQUEST_METHOD)` -> `true`<br>`if (connect_error)` -> `false`<br>`if (num_rows > 0)` -> `true`<br>`if (password_verify)` -> `true`<br>`if (is_verified)` -> `false` | Halaman login ditampilkan kembali dengan pesan peringatan "Please verify your email address first." (`alert-warning`). |
+| **5. Akses Awal Halaman (Bukan Submit Form)**<br>- Metode: `GET` | `if (REQUEST_METHOD)` -> `false` | Halaman login ditampilkan secara normal tanpa ada pesan error atau sukses. |
+| **6. Akses Halaman Setelah Verifikasi Akun**<br>- Metode: `GET`<br>- Session `verification_success` ada dan `true`. | `if (verification_success)` -> `true`<br>`if (REQUEST_METHOD)` -> `false` | Halaman login ditampilkan dengan pesan sukses "Your account has been successfully verified! You can now login." (`alert-success`). |
+| **7. Gagal Koneksi ke Database**<br>- Metode: `POST`<br>- Koneksi DB: Gagal | `if (REQUEST_METHOD)` -> `true`<br>`if (connect_error)` -> `true` | Eksekusi skrip berhenti (`die()`) dan menampilkan pesan error teknis "Connection failed: [pesan error dari mysqli]". |
