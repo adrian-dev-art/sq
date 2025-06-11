@@ -1,3 +1,8 @@
+### Analisis White-Box Testing (Metode: Basic Path Testing)
+
+
+Menguraikan bagaimana beberapa kemungkinan path yang dijalankan pada script `login.php`.
+
 | Bagian | Path | Code | Jalur |
 |--------|------|------|-------|
 | A1 | Username tidak ditemukan | ![A1](./path1.png) | 1. Cek `$result->num_rows > 0`<br>2. Jika `true`, lanjutkan cek password <br>3. Jika `false`, tampilkan error|

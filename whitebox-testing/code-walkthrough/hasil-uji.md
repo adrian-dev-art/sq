@@ -1,4 +1,6 @@
-Code dari login.php
+### Analisis White-Box Testing (Metode: Code Walkthrough)
+
+Tabel ini menguraikan bagaimana code berjalan dalam script `login.php`.
 
 | Code | Catatan |
 | ---------- | ----------- |
