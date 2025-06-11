@@ -7,7 +7,8 @@ if (isset($_GET['code'])) {
     $verification_code = $_GET['code'];
 } else {
     // If no code is passed, show an error
-    die("No verification code provided.");
+    echo("No verification code provided.");
+    return;
 }
 
 // Initialize error and success message variables

@@ -69,7 +69,7 @@ class VerifyTest extends TestCase
         include 'verify.php';
         $output = ob_get_clean();
 
-        $userCheck = $this->conn->query("SELECT * FROM users WHERE verification_code = '123456'")->fetch_assoc();
+        $userCheck = $this->conn->query("SELECT * FROM users WHERE verificxation_code = '123456'")->fetch_assoc();
         $this->assertEquals(1, $userCheck['is_verified']);
     }
 
