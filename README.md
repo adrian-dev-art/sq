@@ -1,8 +1,3 @@
-Berikut versi **final**, **lengkap**, dan **terstruktur rapi** dalam **satu file README.md**—siap pakai di project GitHub-mu:
-
----
-
-````markdown
 # SQ - Game Dashboard Web Application
 
 SQ is a lightweight PHP web application that allows users to manage personal game collections by integrating with the [RAWG.io](https://rawg.io/apidocs) public API. The system features user authentication, email verification, and folder-based organization of video games. It is designed as a practical implementation of PHP development, external API consumption, and UI structuring.
@@ -45,7 +40,7 @@ SQ is a lightweight PHP web application that allows users to manage personal gam
 
 ## Project Structure
 
-```text
+
 phpmailer/
 ├── api_helper.php            # General API request utility
 ├── dashboard.php             # Main dashboard view after login
@@ -58,7 +53,7 @@ phpmailer/
 ├── register.php              # User registration and email sending
 ├── verify.php                # Email verification logic
 └── README.md                 # Project documentation
-````
+
 
 ## Installation
 
@@ -73,29 +68,29 @@ phpmailer/
 
 1. **Clone the repository**
 
-   ```bash
+   bash
    git clone https://github.com/adrian-dev-art/sq.git
-   ```
+   
 
 2. **Set up your local database**
 
    * Create a new MySQL database.
    * Import your own schema containing tables for:
 
-     * `users`
-     * `folders`
-     * `games`
+     * users
+     * folders
+     * games
 
 3. **Configure database connection**
 
-   * Open `phpmailer/db_connection.php`.
-   * Set your DB credentials (`host`, `username`, `password`, `database`).
+   * Open phpmailer/db_connection.php.
+   * Set your DB credentials (host, username, password, database).
 
 4. **Set up PHPMailer**
 
-   * Edit SMTP settings inside `register.php`:
+   * Edit SMTP settings inside register.php:
 
-     ```php
+     php
      $mail->isSMTP();
      $mail->Host = 'smtp.mailtrap.io'; // or smtp.gmail.com
      $mail->SMTPAuth = true;
@@ -103,26 +98,26 @@ phpmailer/
      $mail->Password = 'your_smtp_password';
      $mail->SMTPSecure = 'tls';
      $mail->Port = 587;
-     ```
+     
    * Use a valid SMTP provider: Mailtrap (for testing), Gmail (for personal use), or SendGrid (for production).
 
 5. **Run the application**
 
-   ```bash
+   bash
    php -S localhost:8000
-   ```
+   
 
    Then open your browser and go to:
 
-   ```
+   
    http://localhost:8000/phpmailer/register.php
-   ```
+   
 
 ## Configuration
 
 * Ensure your SMTP setup is working (test using Mailtrap or Gmail).
 * Optionally register for a RAWG.io API key (free).
-* You may update the RAWG API base URL in `rawg_api_helper.php` if needed.
+* You may update the RAWG API base URL in rawg_api_helper.php if needed.
 * Replace any hardcoded config values with environment variables for production.
 
 ## Usage
@@ -152,7 +147,7 @@ For production deployment, hardening is mandatory.
 * Implement profile and folder editing/deletion
 * Add game image thumbnails (via RAWG.io assets)
 * Add search pagination
-* Use `.env` and dotenv PHP support for configuration
+* Use .env and dotenv PHP support for configuration
 * Secure routes and form submissions
 
 ## License
@@ -165,14 +160,14 @@ This project is licensed under the [MIT License](LICENSE).
 GitHub: [adrian-dev-art](https://github.com/adrian-dev-art)
 Location: Bandung, Indonesia
 
-```
+
 
 ---
 
 Let me know if you want:
-- `.env.example` with all relevant keys
-- `schema.sql` file (users, folders, games table)
-- Docker setup (`Dockerfile`, `docker-compose.yml`)
+- .env.example with all relevant keys
+- schema.sql file (users, folders, games table)
+- Docker setup (Dockerfile, docker-compose.yml)
 
 I’ll ship them fast.
-```
+
