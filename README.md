@@ -1,6 +1,13 @@
 # SQ - Game Dashboard Web Application
 
-SQ is a lightweight PHP web application that allows users to manage personal game collections by integrating with the [RAWG.io](https://rawg.io/apidocs) public API. The system features user authentication, email verification, and folder-based organization of video games. It is designed as a practical implementation of PHP development, external API consumption, and UI structuring.
+SQGame is a lightweight PHP web application that allows users to manage personal game collections by integrating with the [RAWG.io](https://rawg.io/apidocs) public API. The system features user authentication, email verification, and folder-based organization of video games. It is designed as a practical implementation of PHP development, external API consumption, and UI structuring.
+
+## Members
+|Nama|NPM|
+|---|---|
+|Adrian Muhamad Ghofur|20221310101|
+|Dimas Rafsanjani|20221310102|
+
 
 ## Table of Contents
 
